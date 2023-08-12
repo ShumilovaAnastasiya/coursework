@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список фильмов</title>
+  <link rel="stylesheet" href="/main.css">
+  <script src="/jquery-3.6.3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/table.css">
+</head>
+
+<div class="window add" style="display: none;">
+  <div class="background"></div>
+  <div class="content constraint">
+    <div class="window_title">
+      <h2>Добавление фильма</h2>
+    </div>
+    <div class="info">
+      <div class="info__variable">
+        <input name="id" required placeholder="ID фильма" type="text" style="display: none">
+      </div>
+      <div class="info__variable">
+        <input name="title" required placeholder="Название фильма" type="text">
+        <span class="floating-label">Название фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="budget" required placeholder="Бюджет фильма" type="number" min="1">
+        <span class="floating-label">Бюджет фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="duration" required placeholder="Длительность фильма" type="number" min="1">
+        <span class="floating-label">Длительность фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="publishDate" required placeholder="Дата выхода" type="date">
+        <span class="floating-label">Дата выхода</span>
+      </div>
+      <div class="info__variable">
+        <input name="price" required placeholder="Цена за фильм" type="number" min="1">
+        <span class="floating-label">Цена за фильм</span>
+      </div>
+    </div>
+    <div class="window_remote">
+      <button name="add">Добавить</button>
+    </div>
+  </div>
+</div>
+<div class="window edit" style="display: none">
+  <div class="background"></div>
+  <div class="content constraint">
+    <admin th:value="${admin}"></admin>
+    <div class="window_title">
+      <h2>Редактирование фильма</h2>
+    </div>
+    <div class="info">
+      <div class="info__variable">
+        <input name="id" required placeholder="ID фильма" type="text" style="display: none">
+      </div>
+      <div class="info__variable">
+        <input name="title" required placeholder="Название фильма" type="text">
+        <span class="floating-label">Название фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="budget" required placeholder="Бюджет фильма" type="number" min="1">
+        <span class="floating-label">Бюджет фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="duration" required placeholder="Длительность фильма" type="number" min="1">
+        <span class="floating-label">Длительность фильма</span>
+      </div>
+      <div class="info__variable">
+        <input name="publishDate" required placeholder="Дата выхода" type="number" min="1">
+        <span class="floating-label">Дата выхода</span>
+      </div>
+      <div class="info__variable">
+        <input name="price" required placeholder="Цена за билет" type="number" min="1">
+        <span class="floating-label">Цена за билет</span>
+      </div>
+    </div>
+    <div class="window_remote">
+      <button name="delete">Удалить</button>
+      <button name="edit">Изменить</button>
+    </div>
+  </div>
+</div>
+<button class="show_statistic_btn">Статистика</button>
+<div class="window statistic" style="display: none;">
+  <div class="background"></div>
+  <div class="content constraint">
+    <div class="window_title">
+      <h2>Статистика по фильмам</h2>
+    </div>
+    <div class="graphic">
+      <statistic-get href="http://localhost:8081/api/movie/stat"></statistic-get>
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+</div>
+<body>
+<div th:replace="menu :: menu"></div>
+<div class="content">
+  <div class="_ogran">
+    <div class="controller">
+      <div class="sort">
+        <fieldset>
+          <legend>Выберите критерий сортировки</legend>
+          <div class="radios">
+            <div>
+              <input checked type="radio" value="budget" name="sort">
+              <label for="budget">Бюджет</label>
+            </div>
+            <div>
+              <input type="radio" value="duration" name="sort">
+              <label for="duration">Длительность</label>
+            </div>
+            <div>
+              <input type="radio" value="price" name="sort">
+              <label for="price">Цена за билет</label>
+            </div>
+            <div>
+              <input type="radio" value="publishDate" name="sort">
+              <label for="publishDate">Дата выхода</label>
+            </div>
+          </div>
+          <div class="sort__value">
+            <fieldset>
+              <legend>Сортировать по</legend>
+              <select name="sort__value" id="">
+                <option value="asc">Возрастанию</option>
+                <option value="desc">Убыванию</option>
+              </select>
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+      <div class="filter">
+        <fieldset>
+          <legend>Выберите критерий фильтра</legend>
+          <div class="radios">
+            <div>
+              <input checked type="radio" value="budget" name="filter">
+              <label for="budget">Бюджет</label>
+            </div>
+            <div>
+              <input type="radio" value="duration" name="filter">
+              <label for="duration">Длительность</label>
+            </div>
+            <div>
+              <input type="radio" value="price" name="filter">
+              <label for="price">Цена за билет</label>
+            </div>
+          </div>
+          <div class="filter__value">
+            <fieldset>
+              <legend>Значение поиска</legend>
+              <input name="filter__value" placeholder="Введите значение сюда" type="text">
+            </fieldset>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <table class="table">
+      <get-link value="http://localhost:8081/api/movie"/>
+      <thead>
+      <tr>
+        <th class="id">ID</th>
+        <th class="title">Название</th>
+        <th class="budget">Бюджет</th>
+        <th class="duration">Длительность</th>
+        <th class="publishDate">Дата выхода</th>
+        <th class="price">Цена за билет</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="/table.js"></script>
+<script src="/chart.js"></script>
+</body>
+</html>

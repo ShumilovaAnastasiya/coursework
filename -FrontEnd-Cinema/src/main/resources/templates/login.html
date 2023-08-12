@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Авторизация в справочной системе кинотеатра</title>
+  <link rel="stylesheet" href="/main.css">
+  <link rel="stylesheet" href="/form.css">
+  <script src="/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+<div th:replace="menu :: menu"></div>
+<div class="content">
+  <div class="_ogran">
+    <form method="post" th:action="@{/do_login}">
+      <div class="form__header">
+        Авторизация в справочной системе
+      </div>
+      <div class="input">
+        <label for="username">Никнейм пользователя</label><br>
+        <input type="text" required placeholder="Никнейм пользователя" id="username" name="username">
+      </div>
+      <div class="input">
+        <label for="password">Пароль пользователя</label><br>
+        <input type="password" required placeholder="Пароль пользователя" id="password" name="password">
+      </div>
+      <button id="registration" type="submit">Авторизоваться</button><br>
+      <span>Ещё не зарегистрированы? <a th:href="@{/registration}">Зарегистрироваться!</a></span><br>
+      <span th:class="|notification ${notificationClass}|" th:text="${notification}"></span>
+    </form>
+  </div>
+</div>
+</body>
+</html>

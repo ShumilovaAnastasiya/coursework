@@ -1,0 +1,28 @@
+* {
+    font-family: Arial;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: url("/bg.jpg");
+    background-size: cover;
+    background-position: center center;
+}
+
+._ogran {
+    max-width: 1020px;
+    width: 100%;
+    margin: 0 auto;
+    transition: .35s ease-in-out;
+}
+
+.menuActived {
+    transform: translateX(300px);
+}
+
+.content {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}

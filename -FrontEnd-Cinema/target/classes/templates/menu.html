@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+    <div class="menu" th:fragment="menu">
+        <div class="open_menu_div">
+            Таблицы
+        </div>
+        <link rel="stylesheet" href="/menu.css">
+        <script src="/menu.js"></script>
+        <div class="navigation">
+            <div class="nav__header">
+                Справочная система кинотеатра
+            </div>
+
+            <div class="nav__links">
+                <a th:href="@{/movies}" class="link">
+                    Фильмы
+                </a>
+                <a th:href="@{/cashiers}" class="link">
+                    Кассиры
+                </a>
+                <a th:href="@{/viewers}" class="link">
+                    Зрители
+                </a>
+                <a th:href="@{/sales}" class="link">
+                    Продажи
+                </a>
+                <a th:href="@{about}" class="link">
+                    Об авторе
+                </a>
+                <div class="authorizationAndRegistration">
+                    <a th:href="@{/login}" th:if="${#authentication.getName().equals('anonymousUser')}" class="link login">
+                        Войти в аккаунт
+                    </a>
+                    <a th:href="@{/registration}" th:if="${#authentication.getName().equals('anonymousUser')}" class="link registration">
+                        Зарегистрироваться
+                    </a>
+                    <a th:href="@{/logout}" th:if="${!#authentication.getName().equals('anonymousUser')}" class="link logout">
+                        Выйти из аккаунта
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

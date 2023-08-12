@@ -1,0 +1,86 @@
+form {
+    margin: 0 auto;
+    background-color: rgba(1, 1, 1, 0.8);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    padding: 3em;
+    transition: .35s ease-in-out;
+    border: 25px ridge rgba(1, 1, 1, 0.8);
+}
+
+.input {
+    margin-bottom: 35px;
+}
+
+input, button {
+    border: 10px ridge white;
+    transition: .15s ease-in-out;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(1.05);
+}
+
+input:hover, button:hover, input:active, button:active, input:focus, button:focus {
+    border: 10px ridge rgb(160, 160, 160);
+}
+
+.input:last-child {
+    margin-bottom: 0;
+}
+
+.input > * {
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+}
+
+input {
+    padding: 0.5em;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+button#registration {
+    padding: 0.5em 1.75em;
+    font-size: 20px;
+}
+
+span, .notification {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 18px;
+    color: aliceblue;
+}
+
+span > a {
+    color: blue;
+    font-weight: bold;
+}
+
+.form__header {
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.notification.error {
+    color: red;
+    font-weight: bold;
+}
+
+.notification.success {
+    color: greenyellow;
+}

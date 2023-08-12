@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список кассиров</title>
+  <link rel="stylesheet" href="/main.css">
+  <script src="/jquery-3.6.3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/table.css">
+</head>
+
+<div class="window add" style="display: none;">
+  <div class="background"></div>
+  <div class="content constraint">
+    <div class="window_title">
+      <h2>Добавление кассира</h2>
+    </div>
+    <div class="info">
+      <div class="info__variable">
+        <input name="id" required placeholder="ID кассира" type="text" style="display: none">
+      </div>
+      <div class="info__variable">
+        <input name="name" required placeholder="Ф.И.О кассира" type="text">
+        <span class="floating-label">Ф.И.О кассира</span>
+      </div>
+      <div class="info__variable">
+        <input name="birthDate" required placeholder="Дата рождения" type="date">
+        <span class="floating-label">Дата рождения</span>
+      </div>
+    </div>
+    <div class="window_remote">
+      <button name="add">Добавить</button>
+    </div>
+  </div>
+</div>
+<div class="window edit" style="display: none">
+  <div class="background"></div>
+  <div class="content constraint">
+    <admin th:value="${admin}"></admin>
+    <div class="window_title">
+      <h2>Редактирование кассира</h2>
+    </div>
+    <div class="info">
+      <div class="info__variable">
+        <input name="id" required placeholder="ID кассира" type="text" style="display: none">
+      </div>
+      <div class="info__variable">
+        <input name="name" required placeholder="Ф.И.О кассира" type="text">
+        <span class="floating-label">Ф.И.О кассира</span>
+      </div>
+      <div class="info__variable">
+        <input name="birthDate" required placeholder="Дата рождения" type="date">
+        <span class="floating-label">Дата рождения</span>
+      </div>
+    </div>
+    <div class="window_remote">
+      <button name="delete">Удалить</button>
+      <button name="edit">Изменить</button>
+    </div>
+  </div>
+</div>
+<button class="show_statistic_btn">Статистика</button>
+<div class="window statistic" style="display: none;">
+  <div class="background"></div>
+  <div class="content constraint">
+    <div class="window_title">
+      <h2>Статистика по кассирам</h2>
+    </div>
+    <div class="graphic">
+      <statistic-get href="http://localhost:8081/api/cashier/stat"></statistic-get>
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+</div>
+<body>
+  <div th:replace="menu :: menu"></div>
+  <div class="content">
+    <div class="_ogran">
+      <div class="controller">
+        <div class="sort">
+          <fieldset>
+            <legend>Выберите критерий сортировки</legend>
+            <div class="radios">
+              <div>
+                <input checked type="radio" value="birthDate" name="sort">
+                <label for="birthDate">Дата рождения</label>
+              </div>
+            </div>
+            <div class="sort__value">
+              <fieldset>
+                <legend>Сортировать по</legend>
+                <select name="sort__value" id="">
+                  <option value="asc">Возрастанию</option>
+                  <option value="desc">Убыванию</option>
+                </select>
+              </fieldset>
+            </div>
+          </fieldset>
+        </div>
+        <div class="filter">
+          <fieldset>
+            <legend>Выберите критерий фильтра</legend>
+            <div class="radios">
+              <div>
+                <input checked type="radio" value="name" name="filter">
+                <label for="name">Ф.И.О кассира</label>
+              </div>
+              <div>
+                <input type="radio" value="birthDate" name="filter">
+                <label for="birthDate">Дата рождения</label>
+              </div>
+            </div>
+            <div class="filter__value">
+              <fieldset>
+                <legend>Значение поиска</legend>
+                <input name="filter__value" placeholder="Введите значение сюда" type="text">
+              </fieldset>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <table class="table">
+        <get-link value="http://localhost:8081/api/cashier"/>
+        <thead>
+        <tr>
+          <th class="id">ID</th>
+          <th class="name">Ф.И.О кассира</th>
+          <th class="birthDate">Дата рождения</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="/table.js"></script>
+  <script src="/chart.js"></script>
+</body>
+</html>
